@@ -7,7 +7,6 @@ This project implements several reinforcement learning algorithms and applies th
 - [Introduction](#introduction)
 - [Environments](#environments)
 - [Algorithms](#algorithms)
-- [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Results](#results)
@@ -49,23 +48,6 @@ A policy that balances exploration and exploitation by selecting random actions 
 ### Upper Confidence Bound (UCB) Algorithm
 An algorithm that selects actions based on an optimism in the face of uncertainty principle, balancing exploration and exploitation.
 
-## Project Structure
-
-reinforcement_learning/
-│
-├── grid_world.py
-├── multi_armed_bandit.py
-├── algorithms.py
-├── main.py
-├── gym.py
-└── requirements.txt
-
-- `grid_world.py`: Defines the GridWorld environment.
-- `multi_armed_bandit.py`: Defines the Multi-Armed Bandit environment.
-- `algorithms.py`: Contains the implementation of the reinforcement learning algorithms.
-- `main.py`: The entry point for running the algorithms on the environments.
-- `gym.py`: The entry point for running the algorithms on the environments.
-- `requirements.txt`: Lists the required Python packages.
 
 ## Installation
 
@@ -81,7 +63,7 @@ reinforcement_learning/
 To run the algorithms on the environments, execute the main script:
 
 `python main.py`
-`python gym.py`
+
 
 ## Results
 

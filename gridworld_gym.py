@@ -2,7 +2,6 @@ import numpy as np
 import random
 import gymnasium as gym
 
-
 # Define the grid_worldironment
 grid_world = gym.make("FrozenLake-v1", render_mode="ansi")
 grid_world.reset()
@@ -59,8 +58,7 @@ def policy_iteration_gym(grid_world, gamma=0.9):
                 delta = max(delta, abs(v - V[state]))
             if delta < 1e-6:
                 break
-        
-        # Policy Improvement
+       
         is_policy_stable = True
         for state in range(grid_world.observation_space.n):
             old_action = policy[state]
@@ -99,18 +97,18 @@ def q_learning_gym(grid_world, alpha=0.1, gamma=0.9, epsilon=0.1, episodes=1000)
 
 # Function to perform Epsilon-Greedy Policy on the Gym grid_worldironment
 def epsilon_greedy_gym(grid_world, Q, epsilon=0.1, episodes=1000):
-    policy = np.zeros(grid_world.observation_space.n, dtype=int)  # Initialize policy to zeros
+    policy = np.zeros(grid_world.observation_space.n, dtype=int) 
     for _ in range(episodes):
-        state, _ = grid_world.reset()  # Reset the grid_worldironment to start a new episode
+        state, _ = grid_world.reset()  
         done = False
         while not done:
             if random.uniform(0, 1) < epsilon:
-                action = grid_world.action_space.sample()  # Exploration: choose a random action
+                action = grid_world.action_space.sample()
             else:
-                action = np.argmax(Q[state])  # Exploitation: choose the best known action
+                action = np.argmax(Q[state]) 
             
-            next_state, reward, done, _, _ = grid_world.step(action)  # Take the action and observe the outcome
-            state = next_state  # Move to the next state
+            next_state, reward, done, _, _ = grid_world.step(action)  
+            state = next_state  
         policy[state] = action
     return policy
 
@@ -118,10 +116,10 @@ def epsilon_greedy_gym(grid_world, Q, epsilon=0.1, episodes=1000):
 
 # Function to perform UCB Algorithm on the Gym grid_worldironment
 def ucb_gym(grid_world, c=2, episodes=1000, gamma = 0.9):
-    Q = np.zeros((grid_world.observation_space.n, grid_world.action_space.n))  # Initialize Q-table to zeros
-    counts = np.zeros((grid_world.observation_space.n, grid_world.action_space.n))  # Initialize counts to zeros
+    Q = np.zeros((grid_world.observation_space.n, grid_world.action_space.n)) 
+    counts = np.zeros((grid_world.observation_space.n, grid_world.action_space.n)) 
     for _ in range(episodes):
-        state, _ = grid_world.reset()  # Reset the grid_worldironment to start a new episode
+        state, _ = grid_world.reset() 
         done = False
         t = 0
         while not done:
@@ -132,7 +130,7 @@ def ucb_gym(grid_world, c=2, episodes=1000, gamma = 0.9):
                 ucb_values = Q[state] + c * np.sqrt(np.log(t + 1) / (counts[state] + 1))
                 action = np.argmax(ucb_values)
             
-            next_state, reward, done, _, _ = grid_world.step(action)  # Take the action and observe the outcome
+            next_state, reward, done, _, _ = grid_world.step(action) 
             counts[state, action] += 1
             old_value = Q[state, action]
             next_max = np.max(Q[next_state])

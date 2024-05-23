@@ -31,7 +31,6 @@ def policy_iteration_bandit(bandit, gamma=0.9, steps=1000):
     is_policy_stable = False
     
     while not is_policy_stable:
-        # Policy Evaluation
         for _ in range(steps):
             delta = 0
             for state in range(bandit.k):
@@ -42,7 +41,7 @@ def policy_iteration_bandit(bandit, gamma=0.9, steps=1000):
             if delta < 1e-6:
                 break
         
-        # Policy Improvement
+
         old_policy = policy
         q_values = [bandit.pull(a) + gamma * V[a] for a in range(bandit.k)]
         policy = np.argmax(q_values)
